@@ -11,57 +11,95 @@
             box-sizing: border-box;
         }
         body {
-            background-color: #121212;
+            background: #0f0f11;
             font-family: "Microsoft YaHei", sans-serif;
-            padding: 40px 20px;
+            padding: 60px 20px;
             color: #f1f1f1;
+            opacity: 0;
+            animation: pageIn 0.8s ease forwards;
+        }
+        @keyframes pageIn {
+            to {opacity: 1;}
         }
         .container {
-            max-width: 900px;
+            max-width: 960px;
             margin: 0 auto;
         }
         h1 {
             text-align: center;
-            margin-bottom: 35px;
-            color: #f1f1f1;
-            font-size: 42px;
+            margin-bottom: 45px;
+            font-size: 48px;
+            background: linear-gradient(90deg,#e6e6e6,#999,#e6e6e6);
+            background-size: 200%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradientMove 4s linear infinite;
+        }
+        @keyframes gradientMove {
+            0%{background-position:0%}
+            100%{background-position:200%}
         }
         .grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
+            grid-template-columns: repeat(2,1fr);
+            gap: 28px;
         }
-        .item img {
+        .grid-item {
+            overflow: hidden;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.45);
+            opacity: 0;
+            transform: translateY(24px);
+            transition: all 0.4s ease;
+        }
+        .grid-item.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .grid-item img {
             width: 100%;
-            border-radius: 14px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.5);
+            display: block;
             cursor: pointer;
-            transition: 0.2s;
+            transition: transform 0.35s ease;
         }
-        .item img:hover{
-            transform: scale(1.02);
+        .grid-item img:hover {
+            transform: scale(1.06);
         }
-        @media (max-width: 600px) {
+        @media (max-width: 620px) {
             .grid {
                 grid-template-columns: 1fr;
             }
+            h1 {
+                font-size: 34px;
+            }
         }
-        .lightbox{
+        /* 大图弹窗 */
+        .lightbox {
             position: fixed;
-            inset:0;
-            background: rgba(0,0,0,0.9);
-            display:none;
-            align-items:center;
-            justify-content:center;
-            z-index:999;
+            inset: 0;
+            background: rgba(0,0,0,0.94);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.28s ease;
         }
-        .lightbox img{
-            max-width:90%;
-            max-height:90%;
-            border-radius:8px;
+        .lightbox.active {
+            opacity: 1;
+            pointer-events: auto;
         }
-        .lightbox.active{
-            display:flex;
+        .lightbox img {
+            max-width: 92%;
+            max-height: 92vh;
+            border-radius: 10px;
+            transform: scale(0.92);
+            transition: transform 0.28s ease;
+        }
+        .lightbox.active img {
+            transform: scale(1);
         }
     </style>
 </head>
@@ -69,56 +107,69 @@
     <div class="container">
         <h1>之前的那些事</h1>
         <div class="grid">
-            <div class="item"><img src="P%283%29.jpg" alt="照片" onclick="openImg(this.src)"></div>
-            <div class="item"><img src="P%284%29.jpg" alt="照片" onclick="openImg(this.src)"></div>
-            <div class="item"><img src="P%285%29.jpg" alt="照片" onclick="openImg(this.src)"></div>
-            <div class="item"><img src="P%286%29.jpg" alt="照片" onclick="openImg(this.src)"></div>
-            <div class="item"><img src="P%287%29.jpg" alt="照片" onclick="openImg(this.src)"></div>
-            <div class="item"><img src="P%288%29.jpg" alt="照片" onclick="openImg(this.src)"></div>
-            <div class="item"><img src="P%289%29.jpg" alt="照片" onclick="openImg(this.src)"></div>
-            <div class="item"><img src="P%2810%29.jpg" alt="照片" onclick="openImg(this.src)"></div>
-            <div class="item"><img src="P%2811%29.jpg" alt="照片" onclick="openImg(this.src)"></div>
-            <div class="item"><img src="P%2812%29.jpg" alt="照片" onclick="openImg(this.src)"></div>
-            <div class="item"><img src="P%2813%29.jpg" alt="照片" onclick="openImg(this.src)"></div>
-            <div class="item"><img src="P%2814%29.jpg" alt="照片" onclick="openImg(this.src)"></div>
-            <div class="item"><img src="P%2815%29.jpg" alt="照片" onclick="openImg(this.src)"></div>
-            <div class="item"><img src="P%2816%29.jpg" alt="照片" onclick="openImg(this.src)"></div>
-            <div class="item"><img src="P%2817%29.jpg" alt="照片" onclick="openImg(this.src)"></div>
-            <div class="item"><img src="P%2818%29.jpg" alt="照片" onclick="openImg(this.src)"></div>
-            <div class="item"><img src="P%2819%29.jpg" alt="照片" onclick="openImg(this.src)"></div>
-            <div class="item"><img src="P%2820%29.jpg" alt="照片" onclick="openImg(this.src)"></div>
-            <div class="item"><img src="P%2821%29.jpg" alt="照片" onclick="openImg(this.src)"></div>
-            <div class="item"><img src="P%2822%29.jpg" alt="照片" onclick="openImg(this.src)"></div>
-            <div class="item"><img src="P%2823%29.jpg" alt="照片" onclick="openImg(this.src)"></div>
-            <div class="item"><img src="P%2824%29.jpg" alt="照片" onclick="openImg(this.src)"></div>
-            <div class="item"><img src="P%2825%29.jpg" alt="照片" onclick="openImg(this.src)"></div>
-            <div class="item"><img src="P%2826%29.jpg" alt="照片" onclick="openImg(this.src)"></div>
-            <div class="item"><img src="P%2827%29.jpg" alt="照片" onclick="openImg(this.src)"></div>
-            <div class="item"><img src="P%2828%29.jpg" alt="照片" onclick="openImg(this.src)"></div>
-            <div class="item"><img src="P%2829%29.jpg" alt="照片" onclick="openImg(this.src)"></div>
-            <div class="item"><img src="P%2830%29.jpg" alt="照片" onclick="openImg(this.src)"></div>
-            <div class="item"><img src="P%2831%29.jpg" alt="照片" onclick="openImg(this.src)"></div>
-            <div class="item"><img src="P%2832%29.jpg" alt="照片" onclick="openImg(this.src)"></div>
-            <div class="item"><img src="P%2833%29.jpg" alt="照片" onclick="openImg(this.src)"></div>
-            <div class="item"><img src="P%2834%29.jpg" alt="照片" onclick="openImg(this.src)"></div>
-            <div class="item"><img src="P%2835%29.jpg" alt="照片" onclick="openImg(this.src)"></div>
-            <div class="item"><img src="P%2836%29.jpg" alt="照片" onclick="openImg(this.src)"></div>
-            <div class="item"><img src="P%2837%29.jpg" alt="照片" onclick="openImg(this.src)"></div>
-            <div class="item"><img src="P%2838%29.jpg" alt="照片" onclick="openImg(this.src)"></div>
-            <div class="item"><img src="P%2839%29.jpg" alt="照片" onclick="openImg(this.src)"></div>
+            <div class="grid-item"><img src="P3.jpg" alt="" onclick="openPic(this.src)"></div>
+            <div class="grid-item"><img src="P4.jpg" alt="" onclick="openPic(this.src)"></div>
+            <div class="grid-item"><img src="P5.jpg" alt="" onclick="openPic(this.src)"></div>
+            <div class="grid-item"><img src="P6.jpg" alt="" onclick="openPic(this.src)"></div>
+            <div class="grid-item"><img src="P7.jpg" alt="" onclick="openPic(this.src)"></div>
+            <div class="grid-item"><img src="P8.jpg" alt="" onclick="openPic(this.src)"></div>
+            <div class="grid-item"><img src="P9.jpg" alt="" onclick="openPic(this.src)"></div>
+            <div class="grid-item"><img src="P10.jpg" alt="" onclick="openPic(this.src)"></div>
+            <div class="grid-item"><img src="P11.jpg" alt="" onclick="openPic(this.src)"></div>
+            <div class="grid-item"><img src="P12.jpg" alt="" onclick="openPic(this.src)"></div>
+            <div class="grid-item"><img src="P13.jpg" alt="" onclick="openPic(this.src)"></div>
+            <div class="grid-item"><img src="P14.jpg" alt="" onclick="openPic(this.src)"></div>
+            <div class="grid-item"><img src="P15.jpg" alt="" onclick="openPic(this.src)"></div>
+            <div class="grid-item"><img src="P16.jpg" alt="" onclick="openPic(this.src)"></div>
+            <div class="grid-item"><img src="P17.jpg" alt="" onclick="openPic(this.src)"></div>
+            <div class="grid-item"><img src="P18.jpg" alt="" onclick="openPic(this.src)"></div>
+            <div class="grid-item"><img src="P19.jpg" alt="" onclick="openPic(this.src)"></div>
+            <div class="grid-item"><img src="P20.jpg" alt="" onclick="openPic(this.src)"></div>
+            <div class="grid-item"><img src="P21.jpg" alt="" onclick="openPic(this.src)"></div>
+            <div class="grid-item"><img src="P22.jpg" alt="" onclick="openPic(this.src)"></div>
+            <div class="grid-item"><img src="P23.jpg" alt="" onclick="openPic(this.src)"></div>
+            <div class="grid-item"><img src="P24.jpg" alt="" onclick="openPic(this.src)"></div>
+            <div class="grid-item"><img src="P25.jpg" alt="" onclick="openPic(this.src)"></div>
+            <div class="grid-item"><img src="P26.jpg" alt="" onclick="openPic(this.src)"></div>
+            <div class="grid-item"><img src="P27.jpg" alt="" onclick="openPic(this.src)"></div>
+            <div class="grid-item"><img src="P28.jpg" alt="" onclick="openPic(this.src)"></div>
+            <div class="grid-item"><img src="P29.jpg" alt="" onclick="openPic(this.src)"></div>
+            <div class="grid-item"><img src="P30.jpg" alt="" onclick="openPic(this.src)"></div>
+            <div class="grid-item"><img src="P31.jpg" alt="" onclick="openPic(this.src)"></div>
+            <div class="grid-item"><img src="P32.jpg" alt="" onclick="openPic(this.src)"></div>
+            <div class="grid-item"><img src="P33.jpg" alt="" onclick="openPic(this.src)"></div>
+            <div class="grid-item"><img src="P34.jpg" alt="" onclick="openPic(this.src)"></div>
+            <div class="grid-item"><img src="P35.jpg" alt="" onclick="openPic(this.src)"></div>
+            <div class="grid-item"><img src="P36.jpg" alt="" onclick="openPic(this.src)"></div>
+            <div class="grid-item"><img src="P37.jpg" alt="" onclick="openPic(this.src)"></div>
+            <div class="grid-item"><img src="P38.jpg" alt="" onclick="openPic(this.src)"></div>
+            <div class="grid-item"><img src="P39.jpg" alt="" onclick="openPic(this.src)"></div>
         </div>
     </div>
-    <div class="lightbox" id="lb" onclick="closeImg()">
-        <img id="lbimg">
+
+    <div class="lightbox" id="lb" onclick="closePic()">
+        <img id="lb-img">
     </div>
+
     <script>
-        function openImg(s){
-            document.getElementById("lbimg").src=s;
-            document.getElementById("lb").classList.add("active");
+        const lb = document.getElementById('lb');
+        const lbImg = document.getElementById('lb-img');
+        function openPic(src) {
+            lbImg.src = src;
+            lb.classList.add('active');
         }
-        function closeImg(){
-            document.getElementById("lb").classList.remove("active");
+        function closePic() {
+            lb.classList.remove('active');
         }
+
+        // 滚动渐入
+        const items = document.querySelectorAll('.grid-item');
+        const observer = new IntersectionObserver((list)=>{
+            list.forEach(el=>{
+                if(el.isIntersecting) el.target.classList.add('show');
+            })
+        },{threshold:0.15});
+        items.forEach(i=>observer.observe(i));
     </script>
 </body>
 </html>
