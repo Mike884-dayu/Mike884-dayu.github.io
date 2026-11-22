@@ -24,6 +24,7 @@
             text-align: center;
             margin-bottom: 35px;
             color: #f1f1f1;
+            font-size: 42px;
         }
         .grid {
             display: grid;
@@ -34,12 +35,34 @@
             width: 100%;
             border-radius: 14px;
             box-shadow: 0 3px 12px rgba(0,0,0,0.5);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .item img:hover{
+            transform: scale(1.02);
         }
         @media (max-width: 600px) {
-            /* 手机自动变成一行1张 */
             .grid {
                 grid-template-columns: 1fr;
             }
+        }
+        /* 放大弹窗 */
+        .lightbox{
+            position: fixed;
+            inset:0;
+            background: rgba(0,0,0,0.9);
+            display:none;
+            align-items:center;
+            justify-content:center;
+            z-index:999;
+        }
+        .lightbox img{
+            max-width:90%;
+            max-height:90%;
+            border-radius:8px;
+        }
+        .lightbox.active{
+            display:flex;
         }
     </style>
 </head>
@@ -47,44 +70,56 @@
     <div class="container">
         <h1>之前的那些事</h1>
         <div class="grid">
-            <div class="item"><img src="P(3).jpg" alt="照片"></div>
-            <div class="item"><img src="P(4).jpg" alt="照片"></div>
-            <div class="item"><img src="P(5).jpg" alt="照片"></div>
-            <div class="item"><img src="P(6).jpg" alt="照片"></div>
-            <div class="item"><img src="P(7).jpg" alt="照片"></div>
-            <div class="item"><img src="P(8).jpg" alt="照片"></div>
-            <div class="item"><img src="P(9).jpg" alt="照片"></div>
-            <div class="item"><img src="P(10).jpg" alt="照片"></div>
-            <div class="item"><img src="P(11).jpg" alt="照片"></div>
-            <div class="item"><img src="P(12).jpg" alt="照片"></div>
-            <div class="item"><img src="P(13).jpg" alt="照片"></div>
-            <div class="item"><img src="P(14).jpg" alt="照片"></div>
-            <div class="item"><img src="P(15).jpg" alt="照片"></div>
-            <div class="item"><img src="P(16).jpg" alt="照片"></div>
-            <div class="item"><img src="P(17).jpg" alt="照片"></div>
-            <div class="item"><img src="P(18).jpg" alt="照片"></div>
-            <div class="item"><img src="P(19).jpg" alt="照片"></div>
-            <div class="item"><img src="P(20).jpg" alt="照片"></div>
-            <div class="item"><img src="P(21).jpg" alt="照片"></div>
-            <div class="item"><img src="P(22).jpg" alt="照片"></div>
-            <div class="item"><img src="P(23).jpg" alt="照片"></div>
-            <div class="item"><img src="P(24).jpg" alt="照片"></div>
-            <div class="item"><img src="P(25).jpg" alt="照片"></div>
-            <div class="item"><img src="P(26).jpg" alt="照片"></div>
-            <div class="item"><img src="P(27).jpg" alt="照片"></div>
-            <div class="item"><img src="P(28).jpg" alt="照片"></div>
-            <div class="item"><img src="P(29).jpg" alt="照片"></div>
-            <div class="item"><img src="P(30).jpg" alt="照片"></div>
-            <div class="item"><img src="P(31).jpg" alt="照片"></div>
-            <div class="item"><img src="P(32).jpg" alt="照片"></div>
-            <div class="item"><img src="P(33).jpg" alt="照片"></div>
-            <div class="item"><img src="P(34).jpg" alt="照片"></div>
-            <div class="item"><img src="P(35).jpg" alt="照片"></div>
-            <div class="item"><img src="P(36).jpg" alt="照片"></div>
-            <div class="item"><img src="P(37).jpg" alt="照片"></div>
-            <div class="item"><img src="P(38).jpg" alt="照片"></div>
-            <div class="item"><img src="P(39).jpg" alt="照片"></div>
+            <div class="item"><img src="P3.jpg" alt="照片" onclick="openImg(this.src)"></div>
+            <div class="item"><img src="P4.jpg" alt="照片" onclick="openImg(this.src)"></div>
+            <div class="item"><img src="P5.jpg" alt="照片" onclick="openImg(this.src)"></div>
+            <div class="item"><img src="P6.jpg" alt="照片" onclick="openImg(this.src)"></div>
+            <div class="item"><img src="P7.jpg" alt="照片" onclick="openImg(this.src)"></div>
+            <div class="item"><img src="P8.jpg" alt="照片" onclick="openImg(this.src)"></div>
+            <div class="item"><img src="P9.jpg" alt="照片" onclick="openImg(this.src)"></div>
+            <div class="item"><img src="P10.jpg" alt="照片" onclick="openImg(this.src)"></div>
+            <div class="item"><img src="P11.jpg" alt="照片" onclick="openImg(this.src)"></div>
+            <div class="item"><img src="P12.jpg" alt="照片" onclick="openImg(this.src)"></div>
+            <div class="item"><img src="P13.jpg" alt="照片" onclick="openImg(this.src)"></div>
+            <div class="item"><img src="P14.jpg" alt="照片" onclick="openImg(this.src)"></div>
+            <div class="item"><img src="P15.jpg" alt="照片" onclick="openImg(this.src)"></div>
+            <div class="item"><img src="P16.jpg" alt="照片" onclick="openImg(this.src)"></div>
+            <div class="item"><img src="P17.jpg" alt="照片" onclick="openImg(this.src)"></div>
+            <div class="item"><img src="P18.jpg" alt="照片" onclick="openImg(this.src)"></div>
+            <div class="item"><img src="P19.jpg" alt="照片" onclick="openImg(this.src)"></div>
+            <div class="item"><img src="P20.jpg" alt="照片" onclick="openImg(this.src)"></div>
+            <div class="item"><img src="P21.jpg" alt="照片" onclick="openImg(this.src)"></div>
+            <div class="item"><img src="P22.jpg" alt="照片" onclick="openImg(this.src)"></div>
+            <div class="item"><img src="P23.jpg" alt="照片" onclick="openImg(this.src)"></div>
+            <div class="item"><img src="P24.jpg" alt="照片" onclick="openImg(this.src)"></div>
+            <div class="item"><img src="P25.jpg" alt="照片" onclick="openImg(this.src)"></div>
+            <div class="item"><img src="P26.jpg" alt="照片" onclick="openImg(this.src)"></div>
+            <div class="item"><img src="P27.jpg" alt="照片" onclick="openImg(this.src)"></div>
+            <div class="item"><img src="P28.jpg" alt="照片" onclick="openImg(this.src)"></div>
+            <div class="item"><img src="P29.jpg" alt="照片" onclick="openImg(this.src)"></div>
+            <div class="item"><img src="P30.jpg" alt="照片" onclick="openImg(this.src)"></div>
+            <div class="item"><img src="P31.jpg" alt="照片" onclick="openImg(this.src)"></div>
+            <div class="item"><img src="P32.jpg" alt="照片" onclick="openImg(this.src)"></div>
+            <div class="item"><img src="P33.jpg" alt="照片" onclick="openImg(this.src)"></div>
+            <div class="item"><img src="P34.jpg" alt="照片" onclick="openImg(this.src)"></div>
+            <div class="item"><img src="P35.jpg" alt="照片" onclick="openImg(this.src)"></div>
+            <div class="item"><img src="P36.jpg" alt="照片" onclick="openImg(this.src)"></div>
+            <div class="item"><img src="P37.jpg" alt="照片" onclick="openImg(this.src)"></div>
+            <div class="item"><img src="P38.jpg" alt="照片" onclick="openImg(this.src)"></div>
+            <div class="item"><img src="P39.jpg" alt="照片" onclick="openImg(this.src)"></div>
         </div>
     </div>
+    <div class="lightbox" id="lb" onclick="closeImg()">
+        <img id="lbimg">
+    </div>
+    <script>
+        function openImg(s){
+            document.getElementById("lbimg").src=s;
+            document.getElementById("lb").classList.add("active");
+        }
+        function closeImg(){
+            document.getElementById("lb").classList.remove("active");
+        }
+    </script>
 </body>
 </html>
